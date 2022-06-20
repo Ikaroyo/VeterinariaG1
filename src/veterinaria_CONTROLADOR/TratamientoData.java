@@ -262,4 +262,11 @@ public class TratamientoData {
         }
         return tratamientos;
     }
+    /*
+    public List<Tratamiento> listarTratamientosConFiltro(ArrayList<String> p_parametros, ArrayList<String> p_valores){
+        
+        
+       
+    }
+*/
 }
