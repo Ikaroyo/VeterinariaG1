@@ -428,7 +428,7 @@ public class MascotaData {
                 mascota.setColor_pelaje(rs.getString("color_pelaje"));
                 mascota.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
                 mascota.setPeso_actual(rs.getDouble("peso_actual"));
-//              mascota.setCliente(rs.getObject(cd.getClass().
+                mascota.setCliente(cd.buscarCliente(rs.getInt("id_cliente")));
                 mascota.setPeso_promedio(rs.getDouble("peso_promedio"));
                 mascota.setActivo(rs.getBoolean("activo"));
 
@@ -453,5 +453,58 @@ public class MascotaData {
             return edad + " meses";
         }
 
+    }
+    
+    public List<Mascota> obtenerMascotasConFiltro(ArrayList<String> p_parametros, ArrayList<String> p_valores) {
+
+        ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
+        Mascota mascota = null;
+        try {
+            String sql = "SELECT * FROM mascota WHERE ";
+            for (int i = 0; i < p_parametros.size(); i++) {
+                sql += p_parametros.get(i) + " = ? ";
+                if (i < p_parametros.size() - 1) {
+                    sql += " AND ";
+                }
+            }
+            sql += ";";
+            System.out.println(sql);
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            for (int i = 0; i < p_valores.size(); i++) {
+                ps.setString(i + 1, "%" + p_valores.get(i) + "%");
+            }
+
+
+            ResultSet rs = ps.executeQuery();
+
+
+
+            while (rs.next()) {
+
+                mascota = new Mascota();
+
+                mascota.setId_mascota(rs.getInt("id_mascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColor_pelaje(rs.getString("color_pelaje"));
+                mascota.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
+                mascota.setPeso_actual(rs.getDouble("peso_actual"));
+                mascota.setCliente(cd.buscarCliente(rs.getInt("id_cliente")));
+                mascota.setPeso_promedio(rs.getDouble("peso_promedio"));
+                mascota.setActivo(rs.getBoolean("activo"));
+
+                mascotas.add(mascota);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las mascotas: " + ex.getMessage());
+        }
+
+        return mascotas;
     }
 }

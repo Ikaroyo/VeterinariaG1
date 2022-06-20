@@ -5,6 +5,10 @@
  */
 package VISTAS;
 
+import java.util.ArrayList;
+import java.util.List;
+import veterinaria_MODELO.Mascota;
+
 /**
  *
  * @author Barbara
@@ -34,7 +38,6 @@ public class Consultas_MASCOTAS extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jlNOMBRE = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -80,12 +83,7 @@ public class Consultas_MASCOTAS extends javax.swing.JInternalFrame {
         jlNOMBRE.setForeground(new java.awt.Color(255, 255, 255));
         jlNOMBRE.setText("Raza:");
         jPanel1.add(jlNOMBRE, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 70, 20));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 590, 10));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 0, 204));
-        jLabel1.setText("Ultima visita :");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, -1, -1));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 590, 10));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,7 +98,7 @@ public class Consultas_MASCOTAS extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 590, 40));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 590, 110));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/close.png"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -170,12 +168,48 @@ public class Consultas_MASCOTAS extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
+        ArrayList<String> filtros = new ArrayList<String>();
+        ArrayList<String> valores = new ArrayList<String>();
+
+        // if jtAlias is not empty add it to the filter alias
+        if (!jtAlias.getText().isEmpty()) {
+            filtros.add("alias");
+            valores.add(jtAlias.getText());
+        }
+        // if jtSexo is not empty add it to the filter sexo
+        if (!jtSexo.getText().isEmpty()) {
+            filtros.add("sexo");
+            valores.add(jtSexo.getText());
+        }
+        // if jtEspecie is not empty add it to the filter especie
+        if (!jtEspecie.getText().isEmpty()) {
+            filtros.add("especie");
+            valores.add(jtEspecie.getText());
+        }
+        // if jtRaza is not empty add it to the filter raza
+        if (!jtRaza.getText().isEmpty()) {
+            filtros.add("raza");
+            valores.add(jtRaza.getText());
+        }
+        // if jtPeso is not empty add it to the filter peso
+        if (!jtPesoActual.getText().isEmpty()) {
+            filtros.add("peso_actual");
+            valores.add(jtPesoActual.getText());
+        }
+        // if jtDNI is not empty add it to the filter id_cliente
+        if (!jtDNI.getText().isEmpty()) {
+            filtros.add("id_cliente");
+            valores.add(Integer.toString(Menu_PRINCIPAL_VETERINARIA.cd.buscarClientexDNI(Long.parseLong(jtDNI.getText())).getId_cliente()));
+        }
+
+        List<Mascota> mascotas = Menu_PRINCIPAL_VETERINARIA.md.obtenerMascotasConFiltro(filtros, valores);
+        for (Mascota mascota : mascotas) {
+            System.out.println(mascota.toString());
+        }
     }//GEN-LAST:event_jLabel6MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
