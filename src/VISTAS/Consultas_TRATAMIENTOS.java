@@ -37,13 +37,11 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jlDNI = new javax.swing.JLabel();
-        jltexto_dni = new javax.swing.JLabel();
         jlN_DE_CLIENTE = new javax.swing.JLabel();
         jltexto_n_cliente = new javax.swing.JLabel();
         jlCONTACTO_ALTERNATIVO = new javax.swing.JLabel();
         jltexto_Contacto_Alternativo = new javax.swing.JLabel();
         jlAPELLIDO2 = new javax.swing.JLabel();
-        jltexto_Apellido2 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jrbACTIVO = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -56,7 +54,6 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        jlAPELLIDO3 = new javax.swing.JLabel();
         jltexto_Contacto_Alternativo1 = new javax.swing.JLabel();
         jFondo_CLIENTE = new javax.swing.JLabel(){
             String str="/IMAGENES/fondo_TRATAMIENTO.png";
@@ -68,6 +65,7 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
                 g.drawImage(image, 0, 0,getWidth(),getHeight(), this);
             }
         };
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,11 +89,6 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         jlDNI.setForeground(new java.awt.Color(255, 255, 255));
         jlDNI.setText("Tipo:");
         jPanel1.add(jlDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
-
-        jltexto_dni.setBackground(new java.awt.Color(255, 255, 255));
-        jltexto_dni.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jltexto_dni.setOpaque(true);
-        jPanel1.add(jltexto_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 100, 20));
 
         jlN_DE_CLIENTE.setBackground(new java.awt.Color(255, 255, 255));
         jlN_DE_CLIENTE.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -123,11 +116,6 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         jlAPELLIDO2.setForeground(new java.awt.Color(255, 255, 255));
         jlAPELLIDO2.setText("Medicacion:");
         jPanel1.add(jlAPELLIDO2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, 20));
-
-        jltexto_Apellido2.setBackground(new java.awt.Color(255, 255, 255));
-        jltexto_Apellido2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jltexto_Apellido2.setOpaque(true);
-        jPanel1.add(jltexto_Apellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 460, 40));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 590, 20));
 
         jrbACTIVO.setBackground(new java.awt.Color(255, 255, 255));
@@ -143,18 +131,18 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Tratamiento", "Tipo Tratamiento", "Medicamento", "Precio", "Activo"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 540, 70));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 540, 150));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/close.png"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -181,18 +169,15 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 60, 50));
 
-        jlAPELLIDO3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jlAPELLIDO3.setForeground(new java.awt.Color(255, 255, 255));
-        jlAPELLIDO3.setText("Descripcion :");
-        jPanel1.add(jlAPELLIDO3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 130, 20));
-
         jltexto_Contacto_Alternativo1.setBackground(new java.awt.Color(255, 255, 255));
         jltexto_Contacto_Alternativo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jltexto_Contacto_Alternativo1.setOpaque(true);
         jPanel1.add(jltexto_Contacto_Alternativo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 70, 20));
 
         jFondo_CLIENTE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jFondo_CLIENTE, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 630, 460));
+        jPanel1.add(jFondo_CLIENTE, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 540));
+
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,7 +189,7 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
         );
 
         pack();
@@ -212,6 +197,7 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jFondo_CLIENTE;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -230,14 +216,11 @@ public class Consultas_TRATAMIENTOS extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel jlAPELLIDO2;
-    private javax.swing.JLabel jlAPELLIDO3;
     private javax.swing.JLabel jlCONTACTO_ALTERNATIVO;
     private javax.swing.JLabel jlDNI;
     private javax.swing.JLabel jlN_DE_CLIENTE;
-    private javax.swing.JLabel jltexto_Apellido2;
     private javax.swing.JLabel jltexto_Contacto_Alternativo;
     private javax.swing.JLabel jltexto_Contacto_Alternativo1;
-    private javax.swing.JLabel jltexto_dni;
     private javax.swing.JLabel jltexto_n_cliente;
     private javax.swing.JRadioButton jrbACTIVO;
     // End of variables declaration//GEN-END:variables
