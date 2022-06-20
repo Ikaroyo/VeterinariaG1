@@ -456,28 +456,20 @@ public class MascotaData {
     }
     
     public List<Mascota> obtenerMascotasConFiltro(ArrayList<String> p_parametros, ArrayList<String> p_valores) {
-
-        ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
+  ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
         Mascota mascota = null;
         try {
             String sql = "SELECT * FROM mascota WHERE ";
             for (int i = 0; i < p_parametros.size(); i++) {
-                sql += p_parametros.get(i) + " = ? ";
-                if (i < p_parametros.size() - 1) {
-                    sql += " AND ";
+                if (i == 0) {
+                    sql += p_parametros.get(i) + " LIKE '%" + p_valores.get(i) + "%'";
+                } else {
+                    sql += " AND " + p_parametros.get(i) + " LIKE '%" + p_valores.get(i) + "%'";
                 }
             }
-            sql += ";";
-            System.out.println(sql);
-
             PreparedStatement ps = con.prepareStatement(sql);
-            
-            for (int i = 0; i < p_valores.size(); i++) {
-                ps.setString(i + 1, "%" + p_valores.get(i) + "%");
-            }
-
-
             ResultSet rs = ps.executeQuery();
+            
 
 
 

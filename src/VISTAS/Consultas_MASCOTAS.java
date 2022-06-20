@@ -87,13 +87,13 @@ public class Consultas_MASCOTAS extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Mascota", "Alias", "Sexo", "Especie", "ID Cliente", "Fecha Nacimiento", "Peso Actual"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
