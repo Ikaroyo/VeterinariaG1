@@ -5,11 +5,13 @@
  */
 package VISTAS;
 
+import EXTRA.Interacciones;
 import veterinaria_MODELO.Cliente;
 import veterinaria_MODELO.Mascota;
 import veterinaria_MODELO.Tratamiento;
 import veterinaria_MODELO.Visita;
 import static VISTAS.Menu_PRINCIPAL_VETERINARIA.escritorio;
+import static VISTAS.Menu_PRINCIPAL_VETERINARIA.itd;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -40,7 +42,7 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
         // inicio la funcion de validacion de campos para el formulario
         validacionDeCampos();
         jTableVisitas.setAutoCreateRowSorter(true);
-
+        darEstiloAJLabel();
     }
 
     /**
@@ -145,8 +147,8 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
 
         jlPrecio_V.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlPrecio_V.setForeground(new java.awt.Color(255, 255, 255));
-        jlPrecio_V.setText("Valor de la consulta : ");
-        jPanel1.add(jlPrecio_V, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 220, 20));
+        jlPrecio_V.setText("Valor de la consulta :    $");
+        jPanel1.add(jlPrecio_V, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, 20));
 
         jlprecio_V.setBackground(new java.awt.Color(255, 255, 255));
         jlprecio_V.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -196,15 +198,13 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
         jPanel1.add(jlLISTAR_Visita, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 290, -1));
 
         jlSALIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/close.png"))); // NOI18N
-        jlSALIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jlSALIR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlSALIRMouseClicked(evt);
             }
         });
-        jPanel1.add(jlSALIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 390, 60, 50));
+        jPanel1.add(jlSALIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 390, 50, 50));
 
-        jbuscarClienteV.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jbuscarClienteV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbuscarClienteVMouseClicked(evt);
@@ -219,13 +219,12 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
         jPanel1.add(jbuscarClienteV, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 50, 50));
 
         jLIMPIAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/clear.png"))); // NOI18N
-        jLIMPIAR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLIMPIAR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLIMPIARMouseClicked(evt);
             }
         });
-        jPanel1.add(jLIMPIAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 60, 50));
+        jPanel1.add(jLIMPIAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 50, 50));
 
         jlTratamiento_V.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlTratamiento_V.setForeground(new java.awt.Color(255, 255, 255));
@@ -287,9 +286,8 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
         jtID_VISITA.setEnabled(false);
         jPanel1.add(jtID_VISITA, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 70, 20));
 
-        jlGUARDAR_VISITA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/GUARDAR_VISITA_ICONO.png"))); // NOI18N
+        jlGUARDAR_VISITA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/add.png"))); // NOI18N
         jlGUARDAR_VISITA.setText(" ");
-        jlGUARDAR_VISITA.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jlGUARDAR_VISITA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlGUARDAR_VISITAMouseClicked(evt);
@@ -348,6 +346,15 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
     private void validacionDeCampos() {
         Menu_PRINCIPAL_VETERINARIA.vcampos.SNumero(jtDNI_duenio_V);
         Menu_PRINCIPAL_VETERINARIA.vcampos.SDouble(jtfPeso);
+    }
+
+    private void darEstiloAJLabel() {
+        Interacciones.mouseEnterComponent(jbuscarClienteV);
+        Interacciones.mouseEnterComponent(jlGUARDAR_VISITA);
+        Interacciones.mouseEnterComponent(jLIMPIAR);
+        Interacciones.mouseEnterComponent(jlSALIR);
+        
+
     }
     private void jcMascotaVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcMascotaVActionPerformed
         // TODO add your handling code here:
@@ -525,15 +532,15 @@ public class Ficha_VISITAS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jlLISTAR_VisitaMouseClicked
 
     private void jlLISTAR_VisitaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLISTAR_VisitaMouseEntered
-        jlLISTAR_Visita.setBackground(new Color(100,100,255));
+        jlLISTAR_Visita.setBackground(new Color(100, 100, 255));
     }//GEN-LAST:event_jlLISTAR_VisitaMouseEntered
 
     private void jlLISTAR_VisitaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLISTAR_VisitaMouseExited
-        jlLISTAR_Visita.setBackground(new Color(51,51,255));
+        jlLISTAR_Visita.setBackground(new Color(51, 51, 255));
     }//GEN-LAST:event_jlLISTAR_VisitaMouseExited
 
     private void jbuscarClienteVMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbuscarClienteVMouseEntered
-        
+
     }//GEN-LAST:event_jbuscarClienteVMouseEntered
 
     private void jbuscarClienteVMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbuscarClienteVMouseExited

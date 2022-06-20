@@ -14,6 +14,7 @@ import static VISTAS.Menu_PRINCIPAL_VETERINARIA.escritorio;
 import java.util.List;
 
 import veterinaria_MODELO.Mascota;
+
 /**
  *
  * @author Barbara
@@ -28,8 +29,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
 
         // inicio la funcion de validacion de campos para el formulario
         validacionDeCampos();
-  
-   
+
     }
 
     /**
@@ -81,7 +81,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
         jtexto_ContactoA = new javax.swing.JTextField();
         jtexto_Telefono = new javax.swing.JTextField();
         jltexto_dni = new javax.swing.JTextField();
-        jltexto_n_cliente = new javax.swing.JLabel();
+        jltexto_n_cliente = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -175,6 +175,11 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
 
         jLAgregarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/add.png"))); // NOI18N
         jLAgregarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLAgregarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAgregarClienteMouseClicked(evt);
+            }
+        });
         jPanel1.add(jLAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 60, 50));
 
         jLBorrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/delete.png"))); // NOI18N
@@ -200,6 +205,11 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
 
         jLLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/clear.png"))); // NOI18N
         jLLimpiar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLLimpiarMouseClicked(evt);
+            }
+        });
         jPanel1.add(jLLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 60, 50));
         jPanel1.add(jtexto_Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 210, -1));
         jPanel1.add(jtexto_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 210, -1));
@@ -208,11 +218,8 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
         jPanel1.add(jtexto_Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 210, -1));
         jPanel1.add(jltexto_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 140, -1));
 
-        jltexto_n_cliente.setBackground(new java.awt.Color(255, 255, 255));
-        jltexto_n_cliente.setForeground(new java.awt.Color(255, 255, 255));
-        jltexto_n_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jltexto_n_cliente.setOpaque(true);
-        jPanel1.add(jltexto_n_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 70, 20));
+        jltexto_n_cliente.setEnabled(false);
+        jPanel1.add(jltexto_n_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,49 +238,65 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBuscarClienteMouseClicked
-        // TODO add your handling code here:
-        
-     int result = JOptionPane.showOptionDialog(this, "Buscar Cliente:", "Buscar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Por N° de Cliente", "Por DNI"}, "");   
-       
-     if (result == 0) {
-     
-     String clienteN = JOptionPane.showInputDialog(this, "Ingrese el numero de cliente");
-     
-    // el n° existe que lo busque
-    
-    if (clienteN != null) {
- 
-        Cliente encontrado = Menu_PRINCIPAL_VETERINARIA.cd.buscarCliente(Integer.parseInt(jltexto_n_cliente.getText()));
-   
-    } else {
-        
-     String noencontradoN = JOptionPane.showInputDialog(this, "Desea agregar un nuevo cliente?"); 
-     
-     // si = cd.agregarcliente//
-     // no = sale del sistema
-      
+        int result = JOptionPane.showOptionDialog(this, "Buscar Cliente:", "Buscar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Por N° de Cliente", "Por DNI"}, "");
+
+        if (result == 0) {
+
+            String clienteN = JOptionPane.showInputDialog(this, "Ingrese el numero de cliente");
+
+            // el n° existe que lo busque
+            if (clienteN != null) {
+
+                Cliente encontrado = Menu_PRINCIPAL_VETERINARIA.cd.buscarCliente(Integer.parseInt(clienteN));
+
+                if (encontrado != null) {
+                    rellenarCampos(encontrado);
+
+                } else {
+
+                    JOptionPane.showInputDialog(this, "Cliente no encontrado, verifique el numero de cliente o agregue un nuevo cliente");
+                    jltexto_n_cliente.requestFocus();
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ingreso ningun numero de cliente");
+            }
+
+        } else if (result == 1) {
+            
+            String clienteDNI = JOptionPane.showInputDialog(this, "Ingrese el numero de DNI");
+            if (clienteDNI != null) {
+                Cliente encontrado = Menu_PRINCIPAL_VETERINARIA.cd.buscarClientexDNI(Integer.parseInt(clienteDNI));
+                if (encontrado != null) {
+                    System.out.println(encontrado.toString());
+                    rellenarCampos(encontrado);
+                } else {
+                    JOptionPane.showInputDialog(this, "Cliente no encontrado, verifique el numero de DNI o agregue un nuevo cliente");
+                    jltexto_n_cliente.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ingreso ningun numero de DNI");
+            }
+
         }
-  
- 
 
-    if (result == 1) {
-     
-     String clienteDNI = JOptionPane.showInputDialog(this, "Ingrese el numero de DNI");}
- 
 
-         
-    
-         
-     
     }//GEN-LAST:event_jLBuscarClienteMouseClicked
-    }
 
-    
+
     private void jLSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSalirMouseClicked
         // TODO add your handling code here:
-        
+
         dispose();
     }//GEN-LAST:event_jLSalirMouseClicked
+
+    private void jLLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLimpiarMouseClicked
+        limpiarCampos();
+    }//GEN-LAST:event_jLLimpiarMouseClicked
+
+    private void jLAgregarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAgregarClienteMouseClicked
+        
+    }//GEN-LAST:event_jLAgregarClienteMouseClicked
 
     private void validacionDeCampos() {
 
@@ -283,20 +306,28 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
         Menu_PRINCIPAL_VETERINARIA.vcampos.SNumero(jtexto_Telefono);
 
     }
-    
-    
-    private void cargarFormularioConCliente(Cliente cliente){
-        
-    
-  
-    
-    
-        
-        
-        
-        
-        
+
+    private void rellenarCampos(Cliente p_cliente) {
+        jtexto_Apellido.setText(p_cliente.getApellido());
+        jtexto_Nombre.setText(p_cliente.getNombreD());
+        jtexto_Direccion.setText(p_cliente.getDireccion());
+        jtexto_ContactoA.setText(p_cliente.getContactoA());
+        jtexto_Telefono.setText(p_cliente.getTelefono());
+        jltexto_dni.setText(Long.toString(p_cliente.getDni()));
+        jltexto_n_cliente.setText(Integer.toString(p_cliente.getId_cliente()));
+        jrbACTIVO.setEnabled(p_cliente.getActivo());
     }
+
+    private void limpiarCampos() {
+        jtexto_Apellido.setText("");
+        jtexto_Nombre.setText("");
+        jtexto_Direccion.setText("");
+        jtexto_ContactoA.setText("");
+        jtexto_Telefono.setText("");
+        jltexto_dni.setText("");
+        jltexto_n_cliente.setText("");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLAgregarCliente;
     private javax.swing.JLabel jLAgregarMascota;
@@ -323,7 +354,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlN_DE_CLIENTE;
     private javax.swing.JLabel jlTELEFONO1;
     private javax.swing.JTextField jltexto_dni;
-    private javax.swing.JLabel jltexto_n_cliente;
+    private javax.swing.JTextField jltexto_n_cliente;
     private javax.swing.JRadioButton jrbACTIVO;
     private javax.swing.JTextField jtexto_Apellido;
     private javax.swing.JTextField jtexto_ContactoA;

@@ -5,6 +5,9 @@
  */
 package VISTAS;
 
+import EXTRA.Interacciones;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import veterinaria_CONTROLADOR.ClienteData;
 import veterinaria_CONTROLADOR.Conexion;
 import veterinaria_CONTROLADOR.MascotaData;
@@ -16,6 +19,8 @@ import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -29,7 +34,7 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
     public static TratamientoData td;
     public static VisitaData vd;
     public static Validaciones_CAMPOS vcampos = new Validaciones_CAMPOS();
-
+    public static Interacciones itd = new Interacciones();
     /**
      * Creates new form Menu_VETE2
      */
@@ -47,8 +52,11 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
         this.md = new MascotaData(conexion);
         this.td = new TratamientoData(conexion);
         this.vd = new VisitaData(conexion);
+        
+        
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +92,9 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
         jMConsultasMASCOTAS = new javax.swing.JMenuItem();
         jMConsultasTRATAMIENTOS = new javax.swing.JMenuItem();
         jMConsultasVISITAS = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -193,6 +204,26 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
         jConsultas.add(jMConsultasVISITAS);
 
         jMenuPrincipal.add(jConsultas);
+
+        jMenu1.setText("UI");
+
+        jMenuItem1.setText("Dark");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Light");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuPrincipal.add(jMenu1);
 
         setJMenuBar(jMenuPrincipal);
 
@@ -329,6 +360,22 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMConsultasVISITASActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (Exception e) {
+        }
+        SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e) {
+        }
+        SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,20 +386,9 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu_PRINCIPAL_VETERINARIA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu_PRINCIPAL_VETERINARIA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu_PRINCIPAL_VETERINARIA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu_PRINCIPAL_VETERINARIA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
         //</editor-fold>
         //</editor-fold>
@@ -455,6 +491,9 @@ public class Menu_PRINCIPAL_VETERINARIA extends javax.swing.JFrame {
     private javax.swing.JMenu jM_MASCOTAS;
     private javax.swing.JMenu jM_TRATAMIENTOS;
     private javax.swing.JMenu jM_VISITAS;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar jMenuPrincipal;
     // End of variables declaration//GEN-END:variables
 }
