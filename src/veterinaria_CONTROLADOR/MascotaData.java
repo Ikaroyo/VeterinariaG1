@@ -454,9 +454,9 @@ public class MascotaData {
         }
 
     }
-    
+
     public List<Mascota> obtenerMascotasConFiltro(ArrayList<String> p_parametros, ArrayList<String> p_valores) {
-  ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
+        ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
         Mascota mascota = null;
         try {
             String sql = "SELECT * FROM mascota WHERE ";
@@ -469,9 +469,6 @@ public class MascotaData {
             }
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
-
-
 
             while (rs.next()) {
 
