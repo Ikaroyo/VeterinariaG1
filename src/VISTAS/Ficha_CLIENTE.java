@@ -29,6 +29,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
 
         // inicio la funcion de validacion de campos para el formulario
         validacionDeCampos();
+        
 
     }
 
@@ -142,6 +143,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
         jrbACTIVO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jrbACTIVO.setText("Activo");
         jrbACTIVO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jrbACTIVO.setEnabled(false);
         jPanel1.add(jrbACTIVO, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 70, 20));
 
         jLMascotasASuCargo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -184,6 +186,11 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
 
         jLBorrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/delete.png"))); // NOI18N
         jLBorrarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLBorrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLBorrarClienteMouseClicked(evt);
+            }
+        });
         jPanel1.add(jLBorrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 60, 50));
 
         jLModificarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/edit.png"))); // NOI18N
@@ -263,7 +270,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
             }
 
         } else if (result == 1) {
-            
+
             String clienteDNI = JOptionPane.showInputDialog(this, "Ingrese el numero de DNI");
             if (clienteDNI != null) {
                 Cliente encontrado = Menu_PRINCIPAL_VETERINARIA.cd.buscarClientexDNI(Integer.parseInt(clienteDNI));
@@ -271,7 +278,7 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
                     System.out.println(encontrado.toString());
                     rellenarCampos(encontrado);
                 } else {
-                    JOptionPane.showInputDialog(this, "Cliente no encontrado, verifique el numero de DNI o agregue un nuevo cliente");
+                    JOptionPane.showMessageDialog(this, "Cliente no encontrado, verifique el numero de DNI o agregue un nuevo cliente");
                     jltexto_n_cliente.requestFocus();
                 }
             } else {
@@ -295,8 +302,71 @@ public class Ficha_CLIENTE extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLLimpiarMouseClicked
 
     private void jLAgregarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAgregarClienteMouseClicked
-        
+        int result = JOptionPane.showOptionDialog(this, "¿Crear un cliente nuevo con los valores del formulario o limpiar y agregar nuevos valores?", "Agregar cliente nuevo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Si", "No"}, "");
+        if (result == 0) {
+            // crear un nuevo cliente
+            if (revisarCampos()) {
+                Cliente nuevoCliente = crearClienteDesdeForm();
+                nuevoCliente.setActivo(true);
+                if (Menu_PRINCIPAL_VETERINARIA.cd.buscarClientexDNI(Long.parseLong(jltexto_dni.getText())) == null) {
+                    Menu_PRINCIPAL_VETERINARIA.cd.agregarCliente(nuevoCliente);
+                    JOptionPane.showMessageDialog(this, "Cliente agregado con exito");
+                    // rellenar id cliente con nuevoCliente.getIdCliente()
+                    jltexto_n_cliente.setText(String.valueOf(nuevoCliente.getId_cliente()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "El DNI: " + jltexto_dni.getText() + " ya existe en la base de datos");
+                }
+
+            }
+        } else if (result == 1) {
+            // limpiar campos
+            limpiarCampos();
+        }
     }//GEN-LAST:event_jLAgregarClienteMouseClicked
+
+    private void jLBorrarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBorrarClienteMouseClicked
+        if(!jltexto_n_cliente.getText().isEmpty()){
+            
+        }
+    }//GEN-LAST:event_jLBorrarClienteMouseClicked
+
+    private Cliente crearClienteDesdeForm() {
+        Cliente nuevoCliente = new Cliente();
+
+        nuevoCliente.setNombreD(jtexto_Nombre.getText());
+        nuevoCliente.setApellido(jtexto_Apellido.getText());
+        nuevoCliente.setDni(Integer.parseInt(jltexto_dni.getText()));
+        nuevoCliente.setDireccion(jtexto_Direccion.getText());
+        nuevoCliente.setTelefono(jtexto_Telefono.getText());
+        nuevoCliente.setContactoA(jtexto_ContactoA.getText());
+        return nuevoCliente;
+    }
+
+    private boolean revisarCampos() {
+        if (jtexto_Nombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre esta vacio");
+            jtexto_Nombre.requestFocus();
+            return false;
+        } else if (jtexto_Direccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Direccion esta vacio");
+            jtexto_Direccion.requestFocus();
+            return false;
+        } else if (jtexto_ContactoA.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Contacto alternativo esta vacio");
+            jtexto_ContactoA.requestFocus();
+            return false;
+        } else if (jtexto_Telefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Telefono esta vacio");
+            jtexto_Telefono.requestFocus();
+            return false;
+        } else if (jltexto_dni.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo DNI esta vacio");
+            jltexto_dni.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private void validacionDeCampos() {
 
